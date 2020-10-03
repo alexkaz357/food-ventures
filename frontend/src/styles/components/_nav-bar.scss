@@ -1,0 +1,143 @@
+.nav-bar {
+  z-index: 10;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  top: 0px;
+  padding: 0 20px;
+  background-color: white;
+  transition: background-color .5s;
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.8s, opacity 0.8s linear;
+    z-index: 1;
+  }
+
+  img {
+    width: 70px;
+    cursor: pointer;
+  }
+
+  ul {
+    a:not(:last-child) {
+      display: flex;
+      align-items: center;
+      margin-right: 50px;
+      cursor: pointer;
+    }
+
+    a {
+      position: relative;
+      text-shadow: 1px 0px 10px white;
+    }
+
+    a:hover {
+      outline-width: 0;
+    }
+
+    a::after {
+      content: '';
+      position: absolute;
+      display: block;
+      height: 2px;
+      width: 100%;
+      bottom: -2px;
+      left: 0;
+      background-color: #000;
+      transform-origin: left;
+      transform: scaleX(0);
+      opacity: 0;
+      transition: all .25s ease-out;
+    }
+
+    a:hover::after {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+
+  &.top {
+    background-color: rgba($color: #fff, $alpha: 0.5);
+    transition: background-color .5s;
+  }
+
+  & .active::after {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 2px;
+    width: 100%;
+    bottom: -2px;
+    left: 0;
+    background-color: #000;
+    transform-origin: left;
+    transform: scaleX(1);
+    opacity: 1;
+    transition: all .25s ease-out;
+  }
+
+  @media (max-width: 800px) {
+
+    ul {
+      margin: 0 auto;
+      flex-direction: column;
+      position: absolute;
+      top: 67px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.8s;
+      width: 350px;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 80px;
+        max-width: 350px;
+        background-color: white;
+        font-size: 1.25rem;
+        margin: 0;
+        margin-top: 3px;
+      }
+    }
+
+    i {
+      cursor: pointer;
+    }
+  }
+
+  @media (min-width: 800px) {
+    & .hamburger {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  body.menu-open ul {
+    max-height: 100vh;
+  }
+
+  body.menu-open .screen {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.8s linear;
+  }
+}

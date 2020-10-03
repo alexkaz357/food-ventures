@@ -1,0 +1,117 @@
+.chat {
+  position: fixed;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  right: 85px;
+  bottom: 10px;
+  height: 450px;
+  width: 350px;
+  z-index: 9999;
+}
+
+.chat-header {
+  background-color: $clr3;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-align: center;
+  padding: 10px 0;
+  color: #fff;
+}
+
+.chat-footer {
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  border-top: 1px solid $clr2;
+  width: 350px;
+  height: 40px;
+
+  input {
+    width: 250px;
+    margin: 10px 0 0 20px;
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  button {
+    position: absolute;
+    right: 10px;
+    margin-top: 3px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .typing {
+    position: absolute;
+    color: $clr2;
+    bottom: 40px;
+    left: 10px;
+  }
+}
+
+.msgs {
+  padding: 5px 20px 20px 20px;
+  overflow: auto;
+  height: 330px;
+}
+
+span {
+  text-transform: capitalize;
+}
+
+.chef,
+.user {
+  line-height: 100%;
+  display: block;
+  position: relative;
+  padding: .25em .5em;
+  border-radius: 100px;
+  clear: both;
+  width: 90%;
+  word-break: break-all;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+.chef {
+  float: left;
+  background-color: rgba($color: $clr3, $alpha: 0.8);
+  color: $clrw;
+  max-width: fit-content;
+  padding: 7.5px 15px;
+  border-radius: 100px;
+  margin: 3px 0;
+}
+
+.user {
+  float: right;
+  background-color: rgba($color: #4267B2, $alpha: 0.8);
+  color: $clrw;
+  max-width: fit-content;
+  padding: 7.5px 15px;
+  border-radius: 100px;
+  margin: 3px 0;
+}
+
+.time.chef,
+.time.user {
+  color: $clrb;
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+}
+
+.timestamp {
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
