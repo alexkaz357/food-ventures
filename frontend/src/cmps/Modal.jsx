@@ -13,6 +13,7 @@ export class Modal extends React.Component {
     eventBus.on('closeModal', () => {
       this.setState({ isShown: false })
       eventBus.emit('edited')
+      document.body.style.overflow = "auto"
     })
   }
 
@@ -20,6 +21,7 @@ export class Modal extends React.Component {
     this.setState({ isShown: false })
     eventBus.emit('reserved')
     eventBus.emit('edited')
+    document.body.style.overflow = "auto"
   }
 
   render() {

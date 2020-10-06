@@ -73,7 +73,7 @@ class _ReservationForm extends React.Component {
     ev.preventDefault();
     if (!this.state.reservation.isChefNotified) {
       this.setState({ reservation: { ...this.state.reservation, isChefNotified: true } })
-      socketService.emit('new_reservation', this.state.reservation);
+      socketService.emit('new reservation', this.state.reservation);
     }
     setTimeout(async () => {
       await this.props.saveReservation(this.state.reservation);
@@ -153,7 +153,7 @@ class _ReservationForm extends React.Component {
           </div>
 
           <div>
-            <TextField aria-label="minimum height" name="comments" value={this.state.reservation.comments} variant="outlined" placeholder="Comments" onChange={this.onInputChange} multiline rows={5} />
+            <TextField aria-label="minimum height" name="comments" value={this.state.reservation.comments} variant="outlined" placeholder="Comments" onChange={this.onInputChange} multiline rows={3} />
           </div>
 
         </MuiThemeProvider>

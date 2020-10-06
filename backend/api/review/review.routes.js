@@ -3,10 +3,8 @@ const {requireAuth, requireAdmin} = require('../../middlewares/requireAuth.middl
 const {addReview, getReviews, deleteReview} = require('./review.controller')
 const router = express.Router()
 
-
-
 router.get('/', getReviews)
 router.post('/', addReview)
-router.delete('/:id',  requireAuth, deleteReview)
+router.delete('/:id', deleteReview)
 
 module.exports = router

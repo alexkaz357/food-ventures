@@ -5,6 +5,7 @@ import { loadUsers } from '../store/actions/userActions'
 import { clearFilter } from '../store/actions/userActions'
 import { UserList } from '../cmps/UserList'
 import { Filter } from '../cmps/Filter'
+import { Link } from 'react-router-dom'
 
 class _Chefs extends Component {
 
@@ -58,10 +59,10 @@ class _Chefs extends Component {
       <div className="chefs main-container">
         <h2>Welcome {this.props.loggedInUser.fullName}, below is a list of our chefs {this.addRElevantWords()}</h2>
         <div className="flex-between">
-          <div style={{ paddingBottom: '20px' }}>
+          <div>
             <Filter onSetFilter={this.onSetFilter} />
           </div>
-          <p className="back-to-homepage">Go back to homepage &nbsp;&nbsp;&nbsp;<i className="arrow fas fa-arrow-right"></i></p>
+          <Link to='/' className="back-to-homepage">Home &nbsp;&nbsp;&nbsp;<i className="arrow fas fa-arrow-right"></i></Link>
         </div>
         <UserList users={onlyChefs} />
       </div>

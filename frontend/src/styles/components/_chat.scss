@@ -17,6 +17,15 @@
   text-align: center;
   padding: 10px 0;
   color: #fff;
+
+  .close-chat-btn {
+    position: absolute;
+    top: -7px;
+    right: 7px;
+    font-size: 30px;
+    cursor: pointer;
+    height: fit-content;
+  }
 }
 
 .chat-footer {
@@ -114,4 +123,40 @@ span {
   text-align: center;
   font-size: 12px;
   margin-bottom: 5px;
+}
+
+@media (max-width: 800px) {
+  .chat {
+    border-radius: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 100%;
+    width: 100%;
+  }
+
+  .chat-header {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+
+    .close-chat-btn {
+      top: -15px;
+      right: 7px;
+      font-size: 50px;
+    }
+  }
+
+  .chat-footer {
+    width: 100%;
+
+    input {
+      width: 75%;
+    }
+
+    .typing {
+      position: absolute;
+      color: $clr2;
+      bottom: 40px;
+      left: 10px;
+    }
+  }
 }

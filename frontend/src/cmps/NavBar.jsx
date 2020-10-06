@@ -15,7 +15,7 @@ class _NavBar extends Component {
 
   componentDidMount() {
     socketService.setup();
-    socketService.on('show_notification', data => {
+    socketService.on('show notification', data => {
       if (this.props.loggedInUser.chef && this.props.loggedInUser._id === data.chefId) {
         this.setState({ isShow: true })
       }
@@ -26,6 +26,10 @@ class _NavBar extends Component {
         this.setState({ isTop })
       }
     });
+  }
+
+  componentWillUnmount() {
+    socketService.terminate();
   }
 
   goHome = () => {

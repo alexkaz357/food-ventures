@@ -4,6 +4,15 @@ module.exports = connectSockets
 
 function connectSockets(io) {
     io.on('connection', socket => {
+
+        socket.on('chat topic', topic => {
+            // if (socket.myTopic) {
+            //     socket.leave(socket.myTopic)
+            // }
+            socket.join(topic)
+            socket.myTopic = topic;
+        })
+
         socket.on('chat newMsg', msg => {
             socketService.add(msg)
             io.to(socket.myTopic).emit('chat addMsg', socketService.query())
@@ -11,17 +20,12 @@ function connectSockets(io) {
 
         socket.on('get msgs', () => {
             io.to(socket.myTopic).emit('send msgs', socketService.query());
-            io.sockets.emit(socket.myTopic).emit('msg sent');
         })
 
-        socket.on('chat topic', topic => {
-            if (socket.myTopic) {
-                socket.leave(socket.myTopic)
-            }
-            socket.join(topic)
-            socket.myTopic = topic;
+        socket.on('notification', () => {
+            io.to(socket.myTopic).emit('msg sent')
         })
-
+        
         socket.on('typing', user => {
             socket.to(socket.myTopic).emit('user typing', user);
         })
@@ -30,9 +34,9 @@ function connectSockets(io) {
             socket.to(socket.myTopic).emit('reset', reset);
         })
 
-        socket.on('new_reservation', data => {
-            io.sockets.emit('show_notification', {
-                chefId: data.from.userId,
+        socket.on('new reservation', data => {
+            io.sockets.emit('show notification', {
+                chefId: data.from.userId
             });
         });
     })

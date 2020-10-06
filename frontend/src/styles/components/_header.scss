@@ -15,12 +15,12 @@
     h2 {
       margin-bottom: 40px;
       font-size: rem(35px);
-      text-shadow: 2px -1px 1px rgba(0, 0, 0, 1)
+      text-shadow: 1px 0px 5px rgba(0, 0, 0, 1)
     }
 
     h3 {
       font-size: rem(30px);
-      text-shadow: 2px -1px 1px rgba(0, 0, 0, 1)
+      text-shadow: 1px 0px 5px rgba(0, 0, 0, 1)
     }
   }
 
@@ -64,6 +64,27 @@
     100% {
       opacity: 0;
       transform: rotate(45deg) translate(20px, 20px);
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .header {
+    background-image: url(../../img/main.jpg);
+    background-attachment: scroll;
+    background-position: center;
+
+    .text {
+
+      h2 {
+        font-size: rem(25px);
+        text-shadow: 1px 0px 1px rgba(0, 0, 0, 1)
+      }
+
+      h3 {
+        font-size: rem(20px);
+        text-shadow: 1px 0px 1px rgba(0, 0, 0, 1)
+      }
     }
   }
 }

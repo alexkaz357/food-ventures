@@ -1,6 +1,7 @@
 .reservations-list {
   .reservations-list-header {
     padding-top: 100px;
+    text-transform: capitalize;
   }
 }
 
@@ -10,7 +11,7 @@
   justify-content: center;
   align-items: center;
   color: $clr2;
-  
+
   h2 {
     margin: 10px 0;
     padding: 0 20px;
@@ -24,28 +25,17 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 
-  @include for-narrow-layout {
-    grid-template-columns:
-      repeat(1, 1fr);
-  }
-
-  @include for-normal-layout {
-    grid-template-columns:
-      repeat(2, 1fr);
-  }
-
-  @include for-wide-layout {
-    grid-template-columns:
-      repeat(3, 1fr);
-  }
-
   .reservation-card {
     border: 1px solid $clr2;
     border-radius: 4px;
     text-align: center;
     padding-top: 20px;
+    
+    h3 {
+      text-transform: capitalize;
+    }
 
-    & p {
+    p {
       padding: 5px 0;
     }
 
@@ -131,5 +121,17 @@
 
   100% {
     transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+@media (max-width: 800px) {
+  .reservations {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (max-width: 1075px) and (min-width: 800px) {
+  .reservations {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

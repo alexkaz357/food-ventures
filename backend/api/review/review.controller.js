@@ -4,8 +4,6 @@ const dbService = require('../../services/db.service')
 const userService = require('../user/user.service')
 const ObjectId = require('mongodb').ObjectId
 
-
-
 async function getReviews(req, res) {
     try {
         const reviews = await reviewService.query(req.query)

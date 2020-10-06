@@ -75,6 +75,8 @@
     padding-top: 20px;
     color: #b2b2b2;
     cursor: pointer;
+    height: fit-content;
+    white-space: nowrap;
 
     &:hover {
       color: $clrb;

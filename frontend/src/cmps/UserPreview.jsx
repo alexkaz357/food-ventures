@@ -15,8 +15,9 @@ export class UserPreview extends Component {
   render() {
 
     const { user } = this.props
+
     return (
-      <div className="user-preview card" style={{ border: '1px solid #b5b6ba' }}>
+      <div className="user-preview card">
 
         <Link to={`/details/${user._id}`}>
 
@@ -26,8 +27,8 @@ export class UserPreview extends Component {
             <div>
               <img className="icon" src={`${user.imgUrl}`} alt="" />
             </div>
-            <div style={{ marginLeft: '10px' }}>
-              <h3 style={{ textTransform: 'capitalize' }}>Chef {user.fullName}</h3>
+            <div className="name">
+              <h3>Chef {user.fullName}</h3>
               <p>{user.chef.rating >= 4.5 ? 'Highly rated' : 'Good offer'}</p>
             </div>
           </div>
@@ -46,7 +47,7 @@ export class UserPreview extends Component {
 
         </Link>
 
-        <div className="flex-between" style={{ borderTop: '1px solid #b5b6ba', padding: '5px 10px' }}>
+        <div className="bottom flex-between">
           <i className={"fav-heart fas fa-heart flex-center" + (this.state.isFavorite ? ' favorite' : '')} onClick={this.addToFav}></i>
           <p className="price">Starting from ${user.chef.price}</p>
         </div>

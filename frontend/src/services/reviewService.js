@@ -17,7 +17,6 @@ async function add(review) {
 }
 
 async function query(filterBy, chef = true) {
-
     if (Object.keys(filterBy).length) {
         var queryStr = (chef) ? `?chefId=${filterBy}` : `?byUserId=${filterBy}`;
     }

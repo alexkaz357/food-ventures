@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { eventBus } from '../services/event-bus-service';
 import socketService from '../services/socketService';
 
 class _Chat extends Component {
@@ -16,7 +17,7 @@ class _Chat extends Component {
 
   componentDidMount() {
     socketService.setup();
-    socketService.emit('chat topic', this.props.user_id);
+    socketService.emit('chat topic', this.props.chef._id);
     socketService.on('chat addMsg', this.addMsg);
     socketService.on('user typing', this.addUserTyping);
     socketService.on('reset', this.resetUserTyping);
@@ -26,26 +27,25 @@ class _Chat extends Component {
     });
     this.addMsg(this.state.msgs)
     this.elInput.current.focus()
+    // document.body.style.overflow = "hidden"
   }
 
   componentWillUnmount() {
-    socketService.off('chat addMsg', this.addMsg);
+    // socketService.off('chat addMsg', this.addMsg);
     socketService.terminate();
     this.setState({ userTyping: '' })
+    // document.body.style.overflow = "auto"
   }
 
   addMsg = newMsg => {
     this.setState({ msgs: newMsg });
   };
 
-  changeTopic = () => {
-    socketService.emit('chat topic', this.props.user._id);
-  };
-
   sendMsg = ev => {
     ev.preventDefault();
     socketService.emit('chat newMsg', this.state.msg);
     this.setState({ msg: { from: this.props.user.userName, txt: '' } });
+    socketService.emit('notification');
   };
 
   msgHandleChange = ev => {
@@ -97,9 +97,13 @@ class _Chat extends Component {
     return this.getTime(now)
   }
 
+  toggleChat = () => {
+    eventBus.emit('toggle-chat')
+  }
+
   render() {
 
-    const { chef } = this.props
+    const { fullName } = this.props.chef
 
     return (
       <div className="chat">
@@ -107,7 +111,8 @@ class _Chat extends Component {
         <div className="chat-container">
 
           <div className="chat-header">
-            <h3>{this.props.user.chef ? 'Welcome' : 'Contact'} {chef}</h3>
+            <h3>{this.props.user.chef ? 'Welcome' : 'Contact'} {fullName}</h3>
+            <span className="close-chat-btn" onClick={this.toggleChat}>&times;</span>
           </div>
 
           <div className="msgs">

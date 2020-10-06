@@ -49,3 +49,26 @@
     }
   }
 }
+
+@media (max-width: 800px) {
+  .testimonials-one {
+    background-image: url(../../img/testimonials-one.jpg);
+    background-attachment: scroll;
+    background-position: center;
+
+    .container {
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      font-size: rem(20px);
+      text-shadow: 1px 0px 5px rgba(0, 0, 0, 1);
+
+      & .one {
+        margin-bottom: 0;
+      }
+
+      & .three {
+        margin-top: 0;
+      }
+    }
+  }
+}

@@ -64,8 +64,14 @@
       color: $clr3;
     }
 
-    button:focus {
+    &:focus {
       outline: none;
     }
+  }
+}
+
+@media (max-width: 800px) {
+  .review-list {
+    display: block;
   }
 }

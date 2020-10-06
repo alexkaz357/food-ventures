@@ -25,12 +25,16 @@ class _UserDetails extends Component {
   };
 
   async componentDidMount() {
+    window.scrollTo(0, 0)
     const { userId } = this.props.match.params;
     this.setState({ chefId: userId })
     const user = await userService.getById(userId);
     this.setState({ user });
     eventBus.on('reserved', () => {
       this.setState({ isReserving: false })
+    })
+    eventBus.on('toggle-chat', () => {
+      this.setState({ isChatOpen: false })
     })
   }
 
@@ -41,18 +45,11 @@ class _UserDetails extends Component {
 
   openReserve = () => {
     this.setState({ isReserving: true })
+    document.body.style.overflow = "hidden"
   }
 
   addToFav = () => {
     this.setState({ isFavorite: !this.state.isFavorite })
-  }
-
-  openModal = () => {
-    this.setState({ isShow: true })
-  }
-
-  closeModal = () => {
-    this.setState({ isShow: false })
   }
 
   getRandomIntInclusive(min, max) {
@@ -62,7 +59,8 @@ class _UserDetails extends Component {
   }
 
   addedReview = async () => {
-    window.location.reload(false);
+    const user = await userService.getById(this.state.chefId);
+    this.setState({ user });
   }
 
   toggleChat = () => {
@@ -77,7 +75,7 @@ class _UserDetails extends Component {
     const { isReserving } = this.state
 
     return (
-      <div className="user-details main-container" style={{ paddingTop: "70px" }}>
+      <div className="user-details main-container">
 
         {isReserving && <Modal chefPrice={user.chef.price} />}
 
@@ -89,23 +87,23 @@ class _UserDetails extends Component {
               <Clap />
             </div>
 
-            <div className="flex">
-              <div>
+            <div className="chef-details-min-container flex">
+              <div className="chef-main-icon">
                 <img src={`${user.imgUrl}`} alt="" className="icon-big" />
               </div>
-              <div style={{ marginLeft: '20px' }}>
+              <div className="chef-all-details">
                 <div className="name-looking">
-                  <h3 style={{ textTransform: 'capitalize', fontSize: '20px' }}>Chef {user.fullName}</h3>
+                  <h3>Chef {user.fullName}</h3>
                   <div className="people-looking">{this.getRandomIntInclusive(2, 19)} people are also looking at this chef, don't miss your chance</div>
                 </div>
                 <p>{user.chef.rating >= 4.5 ? 'Highly rated' : 'Good offer'}</p>
-                <p style={{ padding: '20px 0px' }}>{user.chef.description}</p>
+                <p className="chef-details-description">{user.chef.description}</p>
                 <div >
                   {user.chef.tags.map((tag, idx) => <p className="chef-details-tag" key={idx}>{tag}</p>)}
                 </div>
-                <p className="chef-details-location"><i className="fas fa-map-pin" style={{ color: '#b5b6ba' }}></i> {user.chef.location.name}</p>
-                <p style={{ color: '#ffbf00', paddingBottom: '20px' }}><i className="fas fa-star"></i> {user.chef.rating.toFixed(1)} <span style={{ color: '#b5b6ba' }}>({user.chef.ratingNum})</span></p>
-                <div className="flex-between" style={{ borderTop: '1px solid #b5b6ba', padding: '20px 0' }}>
+                <p className="chef-details-location"><i className="fas fa-map-pin"></i> {user.chef.location.name}</p>
+                <p className="chef-details-rating"><i className="fas fa-star"></i> {user.chef.rating.toFixed(1)} <span>({user.chef.ratingNum})</span></p>
+                <div className="favorite-price flex-between">
                   <i className={"fav-heart fas fa-heart flex-center" + (this.state.isFavorite ? ' favorite' : '')} onClick={this.addToFav}></i>
                   <p>Starting from ${user.chef.price}</p>
                 </div>
@@ -147,7 +145,7 @@ class _UserDetails extends Component {
           <AddReview chefId={user._id} addedReview={this.addedReview} />
         </section>
 
-        {this.state.isChatOpen && <Chat chef={user.fullName} />}
+        {this.state.isChatOpen && <Chat chef={user} />}
 
         {!this.props.user.chef && <div className="chat-btn-container">
           <button className="chat-btn" onClick={this.toggleChat}><i className="far fa-comments"></i></button>
@@ -160,7 +158,8 @@ class _UserDetails extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.userReducer.loggedInUser
+    user: state.userReducer.loggedInUser,
+    updatedUser: state.reviewReducer.updatedUser
   }
 }
 

@@ -1,5 +1,7 @@
 .filter {
 
+  padding-bottom: 20px;
+
   .filter-sort {
     display: inline-block;
     margin: 21px 0 0 20px;
@@ -10,11 +12,11 @@
     color: $clrb;
   }
 
-  span{
+  span {
     cursor: pointer;
   }
 
-  span:hover{
+  span:hover {
     color: $clr3;
   }
 }

@@ -23,6 +23,7 @@ class _ReservationPage extends Component {
       this.setState({ isEditing: false })
     })
     socketService.setup();
+    socketService.emit('chat topic', this.props.loggedInUser._id);
     socketService.on('msg sent', () => {
       this.addChatNotification()
     });
@@ -30,13 +31,14 @@ class _ReservationPage extends Component {
 
   componentWillUnmount() {
     eventBus.emit('edited')
-    this.setState({ isChatOpen: false })
+    socketService.terminate();
     this.setState({ isNotification: false })
+    this.setState({ isChatOpen: false })
   }
 
   toggleChat = () => {
-    this.setState({ isChatOpen: !this.state.isChatOpen })
     this.setState({ isNotification: false })
+    this.setState({ isChatOpen: !this.state.isChatOpen })
   }
 
   addChatNotification = () => {
@@ -89,22 +91,22 @@ class _ReservationPage extends Component {
     const filteredReservations = this.getReservationByUser(reservations)
     if (!filteredReservations) return <div className="main-container"><img src={require('../img/loading.gif')} className="loading" alt="" /></div>
 
-    if (reservations === undefined || reservations.length === 0) {
+    if (filteredReservations === undefined || filteredReservations.length === 0) {
       return <div className="no-res main-container">
         <h2>There are no reservations yet</h2>
-        <h2>When you'll make a reservation, you'll see it here</h2>
+        <h2>When a reservation is made, you'll see it here</h2>
       </div>
     }
 
     return (
 
       <div className="reservations-list main-container">
-        <h2 className="reservations-list-header" style={{ textTransform: 'capitalize' }}>Welcome {this.props.loggedInUser.fullName}, below is a list of your reservations</h2>
+        <h2 className="reservations-list-header">Welcome {this.props.loggedInUser.fullName}, below is a list of your reservations</h2>
         <div className="reservations">
           {
             filteredReservations.map(reservation =>
               <div className="reservation-card" key={reservation._id}>
-                <h3 style={{ textTransform: 'capitalize' }}>Name Of The Customer : {reservation.by.fullName}</h3>
+                <h3>Name Of The Customer : {reservation.by.fullName}</h3>
                 <p>Number of guests : {reservation.guestsCount}</p>
                 <p>Meal Location : {reservation.placeLocation}</p>
                 <p>Date : {reservation.date}</p>
@@ -137,7 +139,7 @@ class _ReservationPage extends Component {
 
         {this.state.isEditing && <Modal reservationId={this.state.reservationId} />}
 
-        {this.state.isChatOpen && <Chat toggleNotification={this.toggleNotification} chef={this.props.loggedInUser.fullName} />}
+        {this.state.isChatOpen && <Chat toggleNotification={this.toggleNotification} chef={this.props.loggedInUser} />}
 
         {this.props.loggedInUser.chef && <div className="chat-btn-container">
           <button className={`chat-btn ${this.state.isNotification ? 'notification' : ''}`} onClick={this.toggleChat}><i className="far fa-comments"></i></button>

@@ -16,6 +16,7 @@ class _AddReview extends Component {
             txt: '',
             stars: 5,
             chefId: this.props.chefId,
+            userReviewName: ''
         }
     };
 
@@ -30,10 +31,10 @@ class _AddReview extends Component {
         }));
     };
 
-    addReview = ev => {
+    addReview = async ev => {
         ev.preventDefault();
-        this.props.addReview(this.state.reviewToEdit);
-        this.setState({ reviewToEdit: { txt: '', stars: '', chefId: '' } });
+        await this.props.addReview(this.state.reviewToEdit);
+        this.setState({ reviewToEdit: { _id: '', txt: '', stars: 5, chefId: this.props.chefId, userReviewName: '' } });
         this.props.addedReview()
     }
 
@@ -77,10 +78,10 @@ class _AddReview extends Component {
             <form className="review-form flex-col" onSubmit={this.addReview}>
 
                 <MuiThemeProvider theme={theme}>
-                    <TextField type="text" name="userReviewName" onChange={this.handleChange} placeholder="Your Name" variant="outlined" noValidate autoComplete="off" />
+                    <TextField type="text" name="userReviewName" value={this.state.reviewToEdit.userReviewName} onChange={this.handleChange} placeholder="Your Name" variant="outlined" noValidate autoComplete="off" required/>
 
                     <div className="add-review">
-                        <TextField aria-label="minimum height" name="txt" value={this.state.reviewToEdit.txt} variant="outlined" placeholder="Add a review" onChange={this.handleChange} multiline rows={5} />
+                        <TextField aria-label="minimum height" name="txt" value={this.state.reviewToEdit.txt} variant="outlined" placeholder="Add a review" onChange={this.handleChange} multiline rows={5} required/>
                     </div>
                 </MuiThemeProvider>
 

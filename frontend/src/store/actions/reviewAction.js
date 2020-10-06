@@ -8,7 +8,6 @@ export function loadReviews(id, chef = true) {
     try {
       const reviews = await reviewService.query(filterId, chef);
       dispatch({ type: 'SET_REVIEWS', reviews });
-
     } catch (err) {
       console.log('ReviewActions: err in loadReviews', err);
     }
