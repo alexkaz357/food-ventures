@@ -73,11 +73,12 @@ class _ReservationForm extends React.Component {
     ev.preventDefault();
     if (!this.state.reservation.isChefNotified) {
       this.setState({ reservation: { ...this.state.reservation, isChefNotified: true } })
+      socketService.setup();
       socketService.emit('new reservation', this.state.reservation);
     }
     setTimeout(async () => {
-      await this.props.saveReservation(this.state.reservation);
       eventBus.emit('closeModal')
+      await this.props.saveReservation(this.state.reservation);
       this.props.history.push('/reservations')
     }, 100);
   }
