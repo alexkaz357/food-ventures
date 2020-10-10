@@ -27,14 +27,14 @@ class _Chat extends Component {
     });
     this.addMsg(this.state.msgs)
     this.elInput.current.focus()
-    // document.body.style.overflow = "hidden"
+    document.body.style.overflow = "hidden"
   }
 
   componentWillUnmount() {
     // socketService.off('chat addMsg', this.addMsg);
     socketService.terminate();
     this.setState({ userTyping: '' })
-    // document.body.style.overflow = "auto"
+    document.body.style.overflow = "auto"
   }
 
   addMsg = newMsg => {

@@ -22,6 +22,9 @@ class _ReservationPage extends Component {
     eventBus.on('edited', () => {
       this.setState({ isEditing: false })
     })
+    eventBus.on('toggle-chat', () => {
+      this.setState({ isChatOpen: false })
+    })
     socketService.setup();
     socketService.emit('chat topic', this.props.loggedInUser._id);
     socketService.on('msg sent', () => {
@@ -89,12 +92,22 @@ class _ReservationPage extends Component {
 
     const { reservations } = this.props;
     const filteredReservations = this.getReservationByUser(reservations)
-    if (!filteredReservations) return <div className="main-container"><img src={require('../img/loading.gif')} className="loading" alt="" /></div>
+
+    if (!filteredReservations) return <div className="main-container">
+      <img src={require('../img/loading.gif')} className="loading" alt="" />
+    </div>
 
     if (filteredReservations === undefined || filteredReservations.length === 0) {
       return <div className="no-res main-container">
         <h2>There are no reservations yet</h2>
         <h2>When a reservation is made, you'll see it here</h2>
+
+        {this.state.isChatOpen && <Chat toggleNotification={this.toggleNotification} chef={this.props.loggedInUser} />}
+
+        {this.props.loggedInUser.chef && <div className="chat-btn-container">
+          <button className={`chat-btn ${this.state.isNotification ? 'notification' : ''}`} onClick={this.toggleChat}><i className="far fa-comments"></i></button>
+        </div>}
+
       </div>
     }
 
