@@ -7,7 +7,7 @@
         .clap-clap {
             position: absolute;
             right: 0;
-            bottom: 95px;
+            top: 180px;
         }
     }
 
@@ -222,6 +222,7 @@
 
 .calender-book {
     margin: 0 auto;
+    min-height: 400px;
 }
 
 .book-link {
@@ -261,6 +262,7 @@
     .user-details {
         .chef-details-min {
             .clap-clap {
+                top: auto;
                 bottom: 80px;
             }
         }

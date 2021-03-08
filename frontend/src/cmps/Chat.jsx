@@ -27,7 +27,7 @@ class _Chat extends Component {
     });
     this.addMsg(this.state.msgs)
     this.elInput.current.focus()
-    document.body.style.overflow = "hidden"
+    if (window.screen.width < '800') document.body.style.overflow = "hidden"
   }
 
   componentWillUnmount() {
